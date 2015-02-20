@@ -62,7 +62,7 @@ c = get_config()
 # c.NotebookApp.ipython_dir = ''
 
 # The directory to use for notebooks and kernels.
-# c.NotebookApp.notebook_dir = ''
+c.NotebookApp.notebook_dir = '/vagrant/notebooks'
 
 # The IPython profile to use.
 # c.NotebookApp.profile = 'default'

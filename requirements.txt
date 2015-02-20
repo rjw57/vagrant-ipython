@@ -1,0 +1,6 @@
+# Custom Python packages which should be installed can be listed here.
+
+networkx
+scikit-image
+scikit-learn
+
