@@ -8,15 +8,8 @@ This is a work-in-progress repository containing a
 
 1. [Get vagrant installed and
    working](http://docs.vagrantup.com/v2/getting-started/index.html).
-2. Clone this repo:
-   ```console
-   $ git clone https://github.com/rjw57/vagrant-ipython
-   $ cd vagrant-ipython
-   ```
-3. Start the virtual machine:
-   ```console
-   $ vagrant up
-   ```
+2. Clone this repo: ``git clone https://github.com/rjw57/vagrant-ipython``.
+3. Start the virtual machine: ``cd vagrant-ipython && vagrant up``.
 4. Go to http://localhost:9888/ and start playing.
 
 ## Troubleshooting
