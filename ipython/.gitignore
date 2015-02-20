@@ -1,3 +1,4 @@
 profile_*/security
 profile_*/pid profile_vagrant/pid
 profile_*/log
+profile_*/history.sqlite

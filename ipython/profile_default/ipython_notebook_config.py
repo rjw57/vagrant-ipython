@@ -32,6 +32,7 @@ c = get_config()
 # module, unless it is overridden using the --browser (NotebookApp.browser)
 # configuration option.
 # c.NotebookApp.open_browser = True
+c.NotebookApp.open_browser = False
 
 # Python modules to load as notebook server extensions. This is an experimental
 # API, and may change in future releases.
@@ -538,4 +539,3 @@ c.NotebookApp.notebook_dir = '/vagrant/notebooks'
 # Whitelist of allowed kernel names.
 # 
 # By default, all installed kernels are allowed.
-# c.KernelSpecManager.whitelist = set()

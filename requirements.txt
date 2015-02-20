@@ -1,6 +1,14 @@
 # Custom Python packages which should be installed can be listed here.
 
+# MATLAB support for IPython
+pymatbridge
+metakernel
+matlab_kernel
+
+# Handy graph library for Python
 networkx
+
+# Image processing and machine learning
+Pillow
 scikit-image
 scikit-learn
-
