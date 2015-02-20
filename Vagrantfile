@@ -43,7 +43,8 @@ Vagrant.configure(2) do |config|
   # HACK: this is to support MATLAB, user logins, etc within CUED. On (at
   # least) my machine the /tools directory contains links to MATLAB, etc. On
   # other machines this is likely to be different.
-  config.vm.synced_folder "/tools", "/tools", mount_options: ["ro"]
+  config.vm.synced_folder "/tools", "/tools", mount_options: ["ro"],
+	  disabled: !Dir.exists?("/tools")
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.

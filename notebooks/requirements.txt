@@ -1,9 +1,12 @@
 # Custom Python packages which should be installed can be listed here.
 
-# MATLAB support for IPython
+# MATLAB support for IPython. (Requires MATLAB, duh!)
 pymatbridge
 metakernel
 matlab_kernel
+
+# Useful HTTP client lib
+requests
 
 # Handy graph library for Python
 networkx
@@ -12,3 +15,8 @@ networkx
 Pillow
 scikit-image
 scikit-learn
+
+# Some specific modules from a git repo
+lxml
+git+https://git.csx.cam.ac.uk/x/eng-sigproc/u/rjw57/srf/trafficutils.git#egg=trafficutils
+

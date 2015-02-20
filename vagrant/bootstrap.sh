@@ -10,12 +10,24 @@
 sudo apt-get update
 
 # Install the system python3 packages we desire.
-sudo apt-get install -y python3-pip python3-numpy python3-scipy python3-zmq \
-	python3-matplotlib
+sudo apt-get install -y \
+	git git-doc vim \
+	python3-pip python3-numpy python3-scipy python3-zmq python3-matplotlib
 
 # Install blas, etc development files to allow building some scikit modules
 # from source.
 sudo apt-get install -y libblas-dev libatlas-dev gfortran
+
+# If we have MATLAB available, add a wrapper script.
+if [ -d "/tools/apps/matlab" ]; then
+	sudo tee /usr/bin/matlab >/dev/null <<EOF
+#!/bin/bash
+matlabversion=R2014a
+matlab=/tools/apps/matlab/matlab\$matlabversion/bin/matlab
+exec \$matlab "\$@"
+EOF
+	sudo chmod +x /usr/bin/matlab
+fi
 
 # The following adds specific lines of configuration to dotfiles in the user's
 # home directory if said line has not yet been added. We do this in a very
@@ -50,19 +62,26 @@ if [ ! -e "$HOME/.ipython" ]; then
 	ln -s "/vagrant/ipython" "$HOME/.ipython"
 fi
 
+# If we've got a custom provision script, run it.
+if [ -f "/vagrant/notebooks/setup.sh" ]; then
+	/bin/bash "/vagrant/notebooks/setup.sh"
+fi
+
 # Install the custom Python packages from PyPI.
 pip3 install jsonschema 'tornado>=4.0' jinja2
 pip3 install terminado # <= for terminal support in IPython notebook
 pip3 install 'ipython==3.0.0rc1'
 
 # If there's a requirements.txt in the vagrant directory, also pip install that.
-if [ -f "/vagrant/requirements.txt" ]; then
-	pip3 install -r "/vagrant/requirements.txt"
+if [ -f "/vagrant/notebooks/requirements.txt" ]; then
+	pip3 install -r "/vagrant/notebooks/requirements.txt"
 fi
 
 # Create an upstart job for IPython. The following will have to be changed in
 # the systemd world. Output from the IPython process is logged to
-# /var/log/upstart/ipython-notebook.log.
+# /var/log/upstart/ipython-notebook.log. Note that we intentionally let $HOME
+# be expanded at file creation time since $HOME isn't defined when upstart
+# starts the job.
 sudo tee /etc/init/ipython-notebook.conf >/dev/null <<EOF
 # Launch IPython at system boot
 #
@@ -78,7 +97,7 @@ respawn limit 10 5
 chdir /vagrant/notebooks/
 console log
 setuid vagrant
-exec /home/vagrant/.local/bin/ipython notebook --no-browser \
+exec $HOME/.local/bin/ipython notebook --no-browser \
 	--ip=0.0.0.0 --port 8888 --ipython-dir=/vagrant/ipython/
 EOF
 
